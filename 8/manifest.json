@@ -1,0 +1,15 @@
+{
+  "manifest_version": 2,
+  "name": "8",
+  "version": "0.0.1",
+  "description": "右键菜单",
+  "icons": {
+    "16": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
+  },
+  "background": {
+    "scripts": ["backgrounds/background.js"]
+  },
+  "permissions": ["contextMenus", "tabs"]
+}

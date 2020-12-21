@@ -1,0 +1,15 @@
+{
+  "manifest_version": 2,
+  "name": "3",
+  "version": "0.0.1",
+  "description": "event-pages",
+  "icons": {
+    "16": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
+  },
+  "background": {
+    "scripts": ["eventPages/eventPage.js"],
+    "persistent": false
+  }
+}
