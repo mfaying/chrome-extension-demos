@@ -26,6 +26,20 @@ option
 omnibox TODO 未验证成功
 # 14
 桌面通知 TODO 未验证成功
+# number（略）
+5种类型js的（权限、调用方式）对比，通信等
+# 15
+popup向background发消息
+# 16
+background向popup发消息
+# 17
+popup或者background向content script发送消息
+
+以background为例
+# 18
+
+
+
 
 
 
