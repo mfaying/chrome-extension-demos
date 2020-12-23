@@ -37,6 +37,22 @@ popup或者background向content script发送消息
 
 以background为例
 # 18
+content script向background发消息
+# 19
+injected script和content script通信
+# 20
+长连接和短连接
+# 21
+本地存储
+# 22
+webRequest
+# 23
+国际化
+
+# 参考
+1. [【干货】Chrome插件(扩展)开发全攻略](https://www.cnblogs.com/liuxianan/p/chrome-plugin-develop.html)
+2. [开发者指南 - Google Chrome 扩展程序开发文档（非官方中文版）](https://crxdoc-zh.appspot.com/extensions/devguide)
+
 
 
 
