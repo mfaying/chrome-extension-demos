@@ -1,7 +1,7 @@
 # 什么是Chrome插件
 严格来讲，应该叫Chrome扩展(Chrome Extension)，真正意义上的Chrome插件需要对浏览器源码有一定掌握才有能力去开发。
 
-Chrome插件是一个用Web技术开发、用来增强浏览器功能的软件，它其实就是一个由HTML、CSS、JS、图片等资源组成的一个.crx后缀的压缩包。
+Chrome插件是一个用Web技术开发、用来增强浏览器功能的软件。它其实就是一个由HTML、CSS、JS、图片等资源组成的一个.crx后缀的压缩包。
 
 # 开发与调试
 
@@ -9,13 +9,15 @@ Chrome插件没有严格的项目结构要求，只要保证根目录有一个ma
 
 从右上角菜单->更多工具->扩展程序可以进入插件管理页面，也可以直接在地址栏输入`chrome://extensions`访问。
 
-勾选开发者模式，添加项目文件夹即可。
+勾选开发者模式，添加项目文件夹
 
 开发中，代码有任何改动都必须重新加载一下插件
 
 # manifest.json
 
-这是一个简单的manifest.json
+manifest.json是插件的配置文件
+
+一个简单的manifest.json
 
 ```json
 {
@@ -51,9 +53,11 @@ Chrome插件没有严格的项目结构要求，只要保证根目录有一个ma
 
 content-scripts是Chrome插件向页面注入脚本的一种形式（也可以是css）。
 
-借助content-scripts我们可以自由地修改页面，实现最常见的功能，比如：广告屏蔽、页面CSS定制，等等。
+我们借助content-scripts可以自由地修改页面，实现常见的功能，比如：广告屏蔽、页面CSS定制，等等。
 
-content-scripts和原始页面共享DOM，但是不共享JS。如要访问页面JS（例如某个JS变量），只能通过injected js来实现。content-scripts也不能访问大部分Chrome扩展API，不过你可以通过通信让background来帮你调用这些API。
+content-scripts和原始页面共享DOM，但是不共享JS。如要访问页面JS（例如某个JS变量），只能通过injected js来实现。
+
+content-scripts只能访问部分Chrome扩展API，你可以通过通信让background来帮你调用一些API。
 
 # 2.background
 
@@ -63,7 +67,7 @@ background的权限非常高，几乎可以调用所有的Chrome扩展API（除�
 
 # 3.event-pages
 
-鉴于background生命周期太长，长时间挂载在后台可能会影响性能，所以又有一个event-pages。在配置文件上，它就比background多了一个persistent参数。
+鉴于background生命周期太长，长时间挂载在后台可能会影响性能，所以还有一个event-pages。在配置文件上，它就比background多了一个persistent参数。
 
 它的生命周期是：在被需要时加载，在空闲时被关闭。比如在第一次安装、插件更新、有content-script向它发送消息时加载。
 
@@ -71,13 +75,15 @@ background的权限非常高，几乎可以调用所有的Chrome扩展API（除�
 
 # 4.popup
 
-popup是点击browser_action或者page_action图标???时打开的一个小窗口网页，焦点离开网页就立即关闭，一般用来做一些临时性的交互。它和background的权限非常类似。
+popup是点击browser_action或者page_action图标时打开的一个小窗口网页，焦点离开网页就立即关闭，一般用来做一些临时性的交互。
+
+它和background的权限非常类似。
 
 # 5.injected-script
 
 injected-script并不是一个官方概念，它是指在content-scripts中通过DOM操作的方式向页面注入的JS。
 
-因为content-script无法访问页面中的JS，但inject-script可以。
+content-script无法访问页面中的JS，但inject-script可以。
 
 # 6.homepage_url
 
@@ -93,9 +99,9 @@ Chrome插件可以自定义浏览器的右键菜单，右键菜单可以出现�
 
 # 9.override(覆盖特定页面)
 
-使用override页可以将Chrome默认的一些特定页面改为使用扩展提供的页面。
+使用override页可以将Chrome默认的一些特定页面改为插件提供的页面。
 
-扩展可以替代如下页面：
+可替代的页面如下：
 
 1. 历史记录
 2. 新标签页
@@ -126,7 +132,7 @@ omnibox是向用户提供搜索建议的一种方式。
 
 # 14.桌面通知 TODO ???未验证成功
 
-chrome.notifications API可以方便插件推送桌面通知。
+chrome.notifications API可以推送桌面通知。
 
 # number（略）
 
@@ -146,18 +152,18 @@ chrome.notifications API可以方便插件推送桌面通知。
 
 # 20.长连接和短连接
 
-Chrome插件中有2种通信方式，一个是短连接（chrome.tabs.sendMessage和chrome.runtime.sendMessage），一个是长连接（chrome.tabs.connect和chrome.runtime.connect）。
+Chrome插件中有2种通信方式，一种是短连接（chrome.tabs.sendMessage和chrome.runtime.sendMessage），一种是长连接（chrome.tabs.connect和chrome.runtime.connect）。
 
 # 21.本地存储
 
 本地存储建议用chrome.storage而不是普通的localStorage，好处是：
 
 1. chrome.storage是针对插件全局的，比如你在background中保存数据，在content-script中也能获取到。
-2. chrome.storage.sync可以跟随当前登录用户自动同步，比如这台电脑修改的设置会自动同步到其它电脑，如果没有登录或者未联网则先保存到本地，等登录了再同步至网络。
+2. chrome.storage.sync可以跟随当前登录用户自动同步，比如这台电脑修改的设置会自动同步到其它电脑，如果没有登录或未联网则先保存到本地，等登录了再同步至网络。
 
 # 22.webRequest
 
-通过webRequest系列API可以对HTTP请求进行任性地修改、定制。
+通过webRequest系列API可以对HTTP请求进行修改、定制。
 
 # 23
 国际化
