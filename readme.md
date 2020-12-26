@@ -4,7 +4,7 @@
 
 ![](https://file-stores.oss-cn-beijing.aliyuncs.com/blog/zan-data/zandata-show.gif)
 
-那么，这篇文章就系统介绍一下Chrome插件开发。
+那么，这篇文章就系统介绍一下Chrome插件开发，代码链接附文后。
 
 # 什么是Chrome插件
 
@@ -595,3 +595,6 @@ _locales
 # 参考
 1. [【干货】Chrome插件(扩展)开发全攻略](https://www.cnblogs.com/liuxianan/p/chrome-plugin-develop.html)
 2. [开发者指南 - Google Chrome 扩展程序开发文档（非官方中文版）](https://crxdoc-zh.appspot.com/extensions/devguide)
+
+# 附件
+1. [代码](https://github.com/mfaying/chrome-extension-demos)
